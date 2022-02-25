@@ -1,6 +1,10 @@
-# QUEUE API EXERCISE
+# QUEUE API 
+
+## EXERCISE
 
  *Write a python queue API using an array for storing elements. Your API should include a constructor method which takes as argument the initial capacity of the queue, enqueue and dequeue method, and a method which returns the number of elements stored. Implement dynamic resizing to support storing an arbitrarily large number of elements.*
+
+ ### Solution
 
 Python as an object oriented programming languages uses classes to perform tasks.
 In this project,  APIArray class is defined with `api_elements` attribute to define the queue and `capacity` to define the size of the queue. An API short for Application programming interface, allows to programs to communicate to each other. The APIs of this program are enqueue and dequeue.
@@ -58,7 +62,11 @@ print(length)
 print(dele)
 ```
 
-Output:
+### To Run:
+
+`python api_queue.py`
+
+##### Expected output
 When queue is below capacity:
 
 ```sh
