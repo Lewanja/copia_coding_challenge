@@ -31,8 +31,7 @@ import pandas as pd
 
 Reading data from the file using Pandas:
 
-Read_data() is used since the data is from a tabulated file and contains a header row. Whitespaces are present on the header of row of the column therefore, `delim_whitespace=True`
- is used.
+`read_table()` is used since the data is from a tabulated file and contains a header row. Whitespaces are present on the header of row of the column therefore, `delim_whitespace=True` is used.
 
   ```python
  # read the table from .dat file
@@ -41,13 +40,19 @@ table = pd.read_table("weather.dat", delim_whitespace=True)
 
 Determine maximum spread:
 
-Values read from weather.data file are strings. To calculate the maximum value, integer or float data types are requiered hence the `.astype(float)` is used to change it to a float. However, some values have an asteric(*) present which return
+Values read from weather.data file are strings. To perfom mathematical operations, our values have to be floats. However we cannot convert some values directly as they have an asteric(*).
 
 ```sh
 AttributeError: '*' is not a valid function for 'Series' object 
 ```
 
-error.
+ We therefore have to do some cleaning and then use  `.astype(float)` to change it to a float.
+ 
+ 
+  We then find all the spreads by finding the difference between max and min temperature and then find the max spread.
+
+
+
 Thus, the clean integer function is defined to eliminate the '*' which is substituted with an empty space and called inside the apply function `.apply(clean_integers)`.
 
 ```python
@@ -67,7 +72,7 @@ table['MxT'] = table['MxT'].astype(float)
 table['MnT'] = table['MnT'].astype(float)
 ```
 
-The difference between the maximum temperature and minimum temperature is performed and a column containing the values created `table['spread']`.
+The difference between the maximum temperature and minimum temperature is performed and a column containing the results tabulated. `table['spread']`.
 
 ```python
 
@@ -76,7 +81,7 @@ table['spread'] = table['MxT'] - table['MnT']
 max_spread_index = table['spread'].idxmax()
 ```
 
-The `idxmax()` is used to get the maximum value. The specific column containg the value of day(Dy) and difference in temperatures (spread) is capture using `max_spread_value['Dy'], end=' ')` `print(max_spread_value['spread` functions.
+The `idxmax()` is used to get the row with maximum value on *spread* column. The specific column containg the value of day(Dy) and difference in temperatures (spread) is captured using `max_spread_value['Dy'], end=' ')` `print(max_spread_value['spread` functions.
 
 ```python
 max_spread_value = table.iloc[max_spread_index]

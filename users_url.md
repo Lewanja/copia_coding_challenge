@@ -48,7 +48,7 @@ Steps followed while carrying out the task:
 
 ##### Reading csv file
 
-To access an external file, the `with open('filename', 'r') as f:`  the 'r' field shows that read operation will bbe performed. To write into the file, substitute 'r' with 'w'. The `csv.reader()` iterates over items in a csv file and returns a string each time it is `next()`. The header values of the csv file are stored inside header array while the rows are stored inside the rows array.
+To access an external file, the `with open('filename', 'r') as f:`  the 'r' field shows that read operation will bbe performed. To write into the file, substitute 'r' with 'w'. The `csv.reader()` iterates over items in a csv file and returns a list of the row items each time it is `next()`. The header values of the csv file are stored inside header array while the rows are stored inside the rows array.
 
 ```python
 def get_data_from_csv_file(file_path):
@@ -64,7 +64,7 @@ def get_data_from_csv_file(file_path):
         return header, 
 ```
 
-The header data and row data are paired using `zip()` function and then converted into dictionary `dict()`. The output is sent to [response](http://httpbin.org/post) url.
+The header data and row data are paired using `zip()` function and then converted into dictionary `dict()`. The output is sent to [http bin](http://httpbin.org/post) using a rest API call made by `requests`.
 
 ```python
 def main():
@@ -81,9 +81,9 @@ def main():
 ```
 
 ##### Creating a relational database
-
-To create a database and connect to it, `connect_to = sqlite3.connect("users.db")` is used where the name of the database is passed inside the parantheses. In this case, **'users.db'** is the name of the database.
-Once a connection has been established, a Cursor object is created and  `execute()`  is called to perform SQL commands. To create a table, the CREATE command is used and to insert values into it, the INSERT command is used.
+We use sqlite as it is simple to create and has no external dependencies unlike other databases like mysql and postgresl. However, it's disadvantage is it cannot be used for production or large amounts of data.
+To create an sqlite database and connect to it, `connect_to = sqlite3.connect("users.db")` is used where the name of the database is passed as an argument to the function. In this case, **'users.db'** is the name of the database.
+Once a connection has been established, a Cursor object is created and  `execute()`  is called to perform SQL commands. To create a table, the CREATE command is used to create a table and  the INSERT command is used to add rows of data to the table.
 
 ```python
 connect_to = sqlite3.connect("users.db")
@@ -105,7 +105,7 @@ def create_user_table():
   print(users_from_db)
 ```
 
-The `.commit()` helps visualize what is in the database while `.close()` closes the database connection. When you close the database without `commit()`, changes made are lost.
+The `.commit()` function writes the changes to the database database while `.close()` closes the database connection to avoid having many open database connections. When you close the database without `commit()`, changes made are lost.
 
 - Adding the CSV values into the database.
 
@@ -122,4 +122,3 @@ def read_all_users_from_db():
     conn.execute(query)
     return conn.fetchall()
 ```
-
